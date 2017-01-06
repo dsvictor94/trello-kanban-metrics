@@ -6,12 +6,17 @@ import {bindActionCreators} from 'redux';
 import FlatButton from 'material-ui/FlatButton';
 import Bar from '../components/Bar';
 
+import ScopeForm from './ScopeForm';
+
 import * as Actions from '../actions';
 
 const App = ({title, autenticated, fething, actions}) => {
   const login = <FlatButton label='Login' onTouchTap={actions.autenticate}/>;
   const logout = <FlatButton label='Logout' onTouchTap={actions.unautenticate}/>;
-
+  let ok;
+  if (autenticated) {
+    ok = <ScopeForm />;
+  };
   return (
       <MuiThemeProvider>
         <div style={{maxWidth: '800px', margin: 'auto'}}>
@@ -19,6 +24,7 @@ const App = ({title, autenticated, fething, actions}) => {
             title={title}
             fething={fething}
             iconElementRight={autenticated ? logout : login}/>
+          {ok}
         </div>
       </MuiThemeProvider>
   );

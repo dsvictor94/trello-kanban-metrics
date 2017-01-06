@@ -12,6 +12,10 @@ export const FETCH_BOARDS_DATA = 'FETCH_BOARDS_DATA';
 export const FETCH_BOARDS_DATA_SUCCESS = 'FETCH_BOARDS_DATA_SUCCESS';
 export const FETCH_BOARDS_DATA_FAILURE = 'FETCH_BOARDS_DATA_FAILURE';
 
+export const CHANGE_BOARD = 'CHANGE_BOARD';
+export const CHANGE_BEGINS = 'CHANGE_BEGINS';
+export const CHANGE_ENDS = 'CHANGE_ENDS';
+
 export const autenticate = () => (dispatch, getStore) => {
   dispatch({type: AUTENTICATE_TRELLO});
   const store = getStore();
@@ -37,3 +41,18 @@ export const fetchBoardsData = () => (dispatch) => {
     })
     .catch((error) => dispatch({type: FETCH_BOARDS_DATA_FAILURE, error}));
 };
+
+export const changeBoard = (value) => ({
+  type: CHANGE_BOARD,
+  value: value
+});
+
+export const changeBegins = (value) => ({
+  type: CHANGE_BEGINS,
+  value: value
+});
+
+export const changeEnds = (value) => ({
+  type: CHANGE_ENDS,
+  value: value
+});
