@@ -1,7 +1,8 @@
 import {
   AUTENTICATE_TRELLO,
   AUTENTICATE_TRELLO_SUCCESS,
-  AUTENTICATE_TRELLO_FAILURE
+  AUTENTICATE_TRELLO_FAILURE,
+  UNAUTENTICATE_TRELLO
 } from '../actions';
 
 const app = (state = {
@@ -27,6 +28,12 @@ const app = (state = {
       return {
         ...state,
         fething: false,
+        autenticated: false,
+        token: null
+      };
+    case UNAUTENTICATE_TRELLO:
+      return {
+        ...state,
         autenticated: false,
         token: null
       };
