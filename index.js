@@ -21,6 +21,8 @@ import DevTools from './containers/DevTools';
 
 import thunk from 'redux-thunk';
 
+import {autenticate} from './actions';
+
 const logger = createLogger();
 
 /*
@@ -66,6 +68,8 @@ render(
   </AppContainer>,
   rootElement
 );
+
+store.dispatch(autenticate());
 
 /**
  * This is for hot reloading so the
