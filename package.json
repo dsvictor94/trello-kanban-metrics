@@ -38,6 +38,7 @@
     "ncp": "^2.0.0",
     "postcss-loader": "^1.2.1",
     "promise": "^7.1.1",
+    "qs": "^6.3.0",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-hot-loader": "^3.0.0-beta.2",
@@ -52,6 +53,7 @@
     "style-loader": "^0.13.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^2.4.0",
+    "universal-fetch": "^1.0.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2"
