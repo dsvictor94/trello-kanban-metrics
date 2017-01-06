@@ -1,0 +1,59 @@
+{
+  "name": "trello-kanban-metrics",
+  "version": "0.1.0",
+  "description": "Understand your team.",
+  "main": "webpack.config.js",
+  "scripts": {
+    "start": "webpack-dev-server --progress",
+    "build": "npm run lint && cross-env NODE_ENV=production webpack --config webpack.config.prod.js && ncp index.html dist/index.html",
+    "deploy": "npm run build && git commit dist -m \"Deploy\" && git push origin master && git subtree push --prefix dist origin gh-pages",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dsvictor94/trello-kanban-metrics.git"
+  },
+  "author": "Victor Duarte da Silva <ds.victor94@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dsvictor94/trello-kanban-metrics/issues"
+  },
+  "homepage": "https://github.com/dsvictor94/trello-kanban-metrics#readme",
+  "devDependencies": {
+    "autoprefixer": "^6.6.1",
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-2": "^6.18.0",
+    "cross-env": "^3.1.4",
+    "css-loader": "^0.26.1",
+    "eslint": "^3.12.2",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-react": "^6.8.0",
+    "eslint-plugin-standard": "^2.0.1",
+    "file-loader": "^0.9.0",
+    "json-loader": "^0.5.4",
+    "material-ui": "^0.16.6",
+    "ncp": "^2.0.0",
+    "postcss-loader": "^1.2.1",
+    "promise": "^7.1.1",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "react-hot-loader": "^3.0.0-beta.2",
+    "react-redux": "^5.0.1",
+    "react-tap-event-plugin": "^2.0.1",
+    "redux": "^3.6.0",
+    "redux-devtools": "^3.3.1",
+    "redux-devtools-dock-monitor": "^1.1.1",
+    "redux-devtools-log-monitor": "^1.1.1",
+    "redux-logger": "^2.7.4",
+    "redux-thunk": "^2.1.0",
+    "style-loader": "^0.13.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^2.4.0",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
