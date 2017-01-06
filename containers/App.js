@@ -3,12 +3,23 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
+import FlatButton from 'material-ui/FlatButton';
+import Bar from '../components/Bar';
+
 import * as Actions from '../actions';
 
-const App = ({actions}) => {
+const App = ({title, autenticated, fething, actions}) => {
+  const login = <FlatButton label='Login' onTouchTap={actions.autenticate}/>;
+  const logout = <FlatButton label='Logout' onTouchTap={actions.unautenticate}/>;
+
   return (
       <MuiThemeProvider>
-        <div></div>
+        <div style={{maxWidth: '800px', margin: 'auto'}}>
+          <Bar
+            title={title}
+            fething={fething}
+            iconElementRight={autenticated ? logout : login}/>
+        </div>
       </MuiThemeProvider>
   );
 };
