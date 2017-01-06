@@ -8,6 +8,10 @@ export const AUTENTICATE_TRELLO_FAILURE = 'AUTENTICATE_TRELLO_FAILURE';
 
 export const UNAUTENTICATE_TRELLO = 'UNAUTENTICATE_TRELLO';
 
+export const FETCH_BOARDS_DATA = 'FETCH_BOARDS_DATA';
+export const FETCH_BOARDS_DATA_SUCCESS = 'FETCH_BOARDS_DATA_SUCCESS';
+export const FETCH_BOARDS_DATA_FAILURE = 'FETCH_BOARDS_DATA_FAILURE';
+
 export const autenticate = () => (dispatch, getStore) => {
   dispatch({type: AUTENTICATE_TRELLO});
   const store = getStore();
@@ -15,6 +19,7 @@ export const autenticate = () => (dispatch, getStore) => {
     .authorize({type: 'popup', name: store.app.title})
     .then((token) => {
       dispatch({type: AUTENTICATE_TRELLO_SUCCESS, token});
+      dispatch(fetchBoardsData());
     })
     .catch(() => dispatch({type: AUTENTICATE_TRELLO_FAILURE}));
 };
@@ -22,4 +27,13 @@ export const autenticate = () => (dispatch, getStore) => {
 export const unautenticate = () => (dispatch) => {
   dispatch({type: UNAUTENTICATE_TRELLO});
   Trello.deauthorize();
+};
+
+export const fetchBoardsData = () => (dispatch) => {
+  dispatch({type: FETCH_BOARDS_DATA});
+  Trello.get('/member/me/boards', {lists: 'all', list_fields: 'name', fields: 'name,desc'})
+    .then((boards) => {
+      dispatch({type: FETCH_BOARDS_DATA_SUCCESS, boards});
+    })
+    .catch((error) => dispatch({type: FETCH_BOARDS_DATA_FAILURE, error}));
 };
