@@ -3,6 +3,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
+import {Grid, Row, Col} from 'react-flexbox-grid';
+
 import FlatButton from 'material-ui/FlatButton';
 import Bar from '../components/Bar';
 
@@ -15,17 +17,19 @@ const App = ({title, autenticated, fething, actions}) => {
   const logout = <FlatButton label='Logout' onTouchTap={actions.unautenticate}/>;
   let ok;
   if (autenticated) {
-    ok = <ScopeForm />;
+    ok = <Row><ScopeForm /></Row>;
   };
   return (
       <MuiThemeProvider>
-        <div style={{maxWidth: '800px', margin: 'auto'}}>
-          <Bar
-            title={title}
-            fething={fething}
-            iconElementRight={autenticated ? logout : login}/>
+        <Grid style={{maxWidth: '800px', margin: 'auto'}}>
+          <Row>
+            <Bar
+              title={title}
+              fething={fething}
+              iconElementRight={autenticated ? logout : login}/>
+          </Row>
           {ok}
-        </div>
+        </Grid>
       </MuiThemeProvider>
   );
 };

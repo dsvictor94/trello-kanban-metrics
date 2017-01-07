@@ -39,7 +39,13 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: 'style!css!postcss'
+        loader: 'style!css?modules',
+        include: /flexboxgrid/
+      },
+      {
+        test: /\.css$/,
+        loader: 'style!css!postcss',
+        exclude: /flexboxgrid/
       },
       {
         test: /\.styl$/,
@@ -65,4 +71,3 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin()
   ]
 };
-

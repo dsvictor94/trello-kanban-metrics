@@ -17,7 +17,7 @@ const Bar = ({children, title, fething = false, iconElementRight}, context) => {
     top: '-4px'
   };
 
-  return <div>
+  return <div style={{width: '100%'}}>
     <LinearProgress mode='indeterminate'
       color={palette.accent1Color}
       style={loaderStyle}
