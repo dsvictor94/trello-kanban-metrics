@@ -11,7 +11,11 @@ import {
   FETCH_BOARDS_DATA_SUCCESS,
   FETCH_BOARDS_DATA_FAILURE,
 
-  fetchBoardsData
+  CHANGE_BOARD,
+
+  fetchBoardsData,
+  changeBegins,
+  changeEnds
 } from '../actions';
 
 export const autenticateLogic = createLogic({
@@ -54,8 +58,35 @@ export const boardsFetchLogic = createLogic({
   }
 });
 
+export const boardChangesLogic = createLogic({
+  type: CHANGE_BOARD,
+
+  validate({getState, action}, allow, reject) {
+    const board = getState().scope.board;
+    if (board !== action.value) {
+      allow(action);
+    } else {
+      reject(action);
+    }
+  },
+
+  process({ getState }, dispatch, done) {
+    const boards = getState().data.boards;
+    const board = getState().scope.board;
+    const selectedBoard = boards.filter((b) => (b.id === board));
+    const hasBoarder = (selectedBoard && selectedBoard.length);
+    const lists = hasBoarder ? selectedBoard[0].lists : [];
+    if (lists) {
+      dispatch(changeBegins(lists[0].id));
+      dispatch(changeEnds(lists[lists.length - 1].id));
+    }
+    done();
+  }
+});
+
 export default [
   autenticateLogic,
   unautenticateLogic,
-  boardsFetchLogic
+  boardsFetchLogic,
+  boardChangesLogic
 ];
