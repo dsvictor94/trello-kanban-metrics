@@ -19,11 +19,21 @@ import reducers from './reducers';
 import App from './containers/App';
 import DevTools from './containers/DevTools';
 
-import thunk from 'redux-thunk';
+import { createLogicMiddleware } from 'redux-logic';
 
 import {autenticate} from './actions';
 
 const logger = createLogger();
+
+import T from './drivers/Trello';
+
+const deps = {
+  Trello: T({key: 'adfca17411f60542fa057dd8af2fb028'})
+};
+
+import arrLogic from './logic';
+
+const logicMiddleware = createLogicMiddleware(arrLogic, deps);
 
 /*
  * The enhancer are passed when
@@ -33,16 +43,15 @@ const logger = createLogger();
  * In this case we add a logger
  * middleware that write some debug
  * information every time the
- * state is changed and the thunk
- * middleware that allows you to
- * write action creators that return
- * a function instead of an action.
+ * state is changed and the logic
+ * middleware for organizing all
+ * business logic
  *
  * We also add the Redux DevTools
  * so we can easily debug the state.
  */
 const enhancer = compose(
-  applyMiddleware(thunk, logger),
+  applyMiddleware(logicMiddleware, logger),
   DevTools.instrument()
 );
 
