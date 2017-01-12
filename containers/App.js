@@ -40,7 +40,7 @@ const App = ({title, autenticated, fething, actions}) => {
             </Row>
             {ok}
             <Row>
-              <Tabs>
+              <Tabs style={{width: '100%'}}>
                 <Tab label='Métricas' >
                   <div>
                     <h2 style={styles.headline}>Métricas</h2>
@@ -71,7 +71,7 @@ const App = ({title, autenticated, fething, actions}) => {
                   </div>
                 </Tab>
               </Tabs>
-          </Row>
+            </Row>
         </Grid>
       </MuiThemeProvider>
   );
