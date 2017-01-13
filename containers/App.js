@@ -10,6 +10,7 @@ import Bar from '../components/Bar';
 import {Tabs, Tab} from 'material-ui/Tabs';
 
 import ScopeForm from './ScopeForm';
+import Estimate from './Estimate';
 
 import * as Actions from '../actions';
 
@@ -53,12 +54,7 @@ const App = ({title, autenticated, fething, actions}) => {
                   </div>
                 </Tab>
                 <Tab label='Estimativas' >
-                  <div>
-                    <h2 style={styles.headline}>Estimativas</h2>
-                    <p>
-                      This is another example tab.
-                    </p>
-                  </div>
+                 <Estimate />
                 </Tab>
                 <Tab
                   label='Relatórios'
