@@ -12,6 +12,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import ScopeForm from './ScopeForm';
 import Estimate from './Estimate';
 import Metrics from './Metrics';
+import Reports from './Reports';
 
 import * as Actions from '../actions';
 
@@ -19,14 +20,14 @@ const App = ({title, autenticated, fething, actions}) => {
   const login = <FlatButton label='Login' onTouchTap={actions.autenticate}/>;
   const logout = <FlatButton label='Logout' onTouchTap={actions.unautenticate}/>;
   let ok;
-  const styles = {
-    headline: {
-      fontSize: 24,
-      paddingTop: 16,
-      marginBottom: 12,
-      fontWeight: 400
-    }
-  };
+  // const styles = {
+  //   headline: {
+  //     fontSize: 24,
+  //     paddingTop: 16,
+  //     marginBottom: 12,
+  //     fontWeight: 400
+  //   }
+  // };
 
   if (autenticated) {
     ok = <Row><ScopeForm /></Row>;
@@ -52,12 +53,7 @@ const App = ({title, autenticated, fething, actions}) => {
                 <Tab
                   label='Relatórios'
                   data-route='/home' >
-                  <div>
-                    <h2 style={styles.headline}>Relatórios</h2>
-                    <p>
-                      This is a third example tab.
-                    </p>
-                  </div>
+                  <Reports />
                 </Tab>
               </Tabs>
             </Row>
