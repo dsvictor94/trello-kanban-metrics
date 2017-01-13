@@ -11,6 +11,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 
 import ScopeForm from './ScopeForm';
 import Estimate from './Estimate';
+import Metrics from './Metrics';
 
 import * as Actions from '../actions';
 
@@ -43,15 +44,7 @@ const App = ({title, autenticated, fething, actions}) => {
             <Row>
               <Tabs style={{width: '100%'}}>
                 <Tab label='Métricas' >
-                  <div>
-                    <h2 style={styles.headline}>Métricas</h2>
-                    <p>
-                      This is an example tab.
-                    </p>
-                    <p>
-                      You can put any sort of HTML or react component in here. It even keeps the component state!
-                    </p>
-                  </div>
+                  <Metrics />
                 </Tab>
                 <Tab label='Estimativas' >
                  <Estimate />
