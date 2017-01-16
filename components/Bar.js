@@ -7,17 +7,14 @@ import LinearProgress from 'material-ui/LinearProgress';
 const Bar = ({children, title, fething = false, iconElementRight}, context) => {
   const {baseTheme: {palette}} = context.muiTheme;
   const loaderStyle = {
+    position: 'absolute',
     borderRadius: 0,
     backgroundColor: palette.primary1Color,
     zIndex: '1200',
     ...{visibility: fething ? 'visible' : 'hidden'}
   };
 
-  const barStyle = {
-    top: '-4px'
-  };
-
-  return <div style={{width: '100%'}}>
+  return <div style={{width: '100%', position: 'relative'}}>
     <LinearProgress mode='indeterminate'
       color={palette.accent1Color}
       style={loaderStyle}
@@ -25,7 +22,6 @@ const Bar = ({children, title, fething = false, iconElementRight}, context) => {
     <AppBar
       title={title}
       color={'#ff4081'}
-      style={barStyle}
       iconElementLeft={<IconButton><NavigationClose /></IconButton>}
       iconElementRight={iconElementRight}
     />
