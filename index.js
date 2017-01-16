@@ -86,6 +86,10 @@ store.dispatch(autenticate());
  * the components change.
  */
 if (module.hot) {
+  module.hot.accept('./logic', () => {
+    const arrLogic = require('./logic').default;
+    logicMiddleware.replaceLogic(arrLogic);
+  });
   module.hot.accept('./containers/App', () => {
     const NextApp = require('./containers/App').default;
     render(
