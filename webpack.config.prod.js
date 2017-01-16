@@ -33,7 +33,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: 'style!css!postcss',
+        loader: 'style!css?modules=true&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]!postcss',
         exclude: /flexboxgrid/
       },
       {

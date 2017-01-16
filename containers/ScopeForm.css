@@ -1,0 +1,10 @@
+.scopeForm {
+  display:flex;
+  flex-flow: row wrap;
+  align-items: stretch;
+  justify-content: space-around;
+}
+
+.scopeForm > * {
+  flex: 0 1 auto;
+}
