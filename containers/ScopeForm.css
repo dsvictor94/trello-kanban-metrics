@@ -3,8 +3,10 @@
   flex-flow: row wrap;
   align-items: stretch;
   justify-content: space-around;
+  padding: 16px;
 }
 
 .scopeForm > * {
-  flex: 0 1 auto;
+  flex: 1 1 33%;
+  min-width: 150px;
 }
