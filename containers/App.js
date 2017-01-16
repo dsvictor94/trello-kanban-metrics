@@ -1,10 +1,14 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import TrendingUp from 'material-ui/svg-icons/action/trending-up';
+import Schedule from 'material-ui/svg-icons/action/schedule'
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import FlatButton from 'material-ui/FlatButton';
+
 import Bar from '../components/Bar';
+import SmallCard from '../components/SmallCard';
 
 import ScopeForm from './ScopeForm';
 
@@ -12,12 +16,21 @@ import * as Actions from '../actions';
 
 import css from './App.css';
 
-const App = ({title, autenticated, fething, actions}) => {
+const App = ({throughput, title, autenticated, fething, actions}) => {
   const login = <FlatButton label='Login' onTouchTap={actions.autenticate}/>;
   const logout = <FlatButton label='Logout' onTouchTap={actions.unautenticate}/>;
   let ok;
   if (autenticated) {
-    ok = <ScopeForm/>;
+    const textThroughput = !isNaN(throughput) ? [throughput.toFixed(2), <small>card/day</small>] : 'Unknown';
+    ok = [
+      <ScopeForm key='1'/>,
+      <div className={css.throughputArea} key='2'>
+          <SmallCard icon={<TrendingUp />}>
+            <h1>Throughput</h1>
+            {textThroughput}
+          </SmallCard>
+      </div>
+    ];
   };
   return (
       <MuiThemeProvider>
@@ -36,7 +49,8 @@ const App = ({title, autenticated, fething, actions}) => {
  * Map the state to props.
  */
 const mapStateToProps = (state) => ({
-  ...state.app
+  ...state.app,
+  throughput: state.metrics.throughput
 });
 
 /**

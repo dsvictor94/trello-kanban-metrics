@@ -11,3 +11,24 @@
   margin: 4px auto;
   flex: 1 1 auto;
 }
+
+.throughputArea {
+  display:flex;
+  flex-flow: row wrap;
+  align-items: stretch;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.throughputArea > * {
+  flex: 0 1 calc(50% - 4px);
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+
+@media only screen and (max-width : 480px) {
+  .throughputArea > * {
+    flex: 0 1 100%;
+  }
+}
