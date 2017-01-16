@@ -29,6 +29,10 @@ const App = ({throughput, title, autenticated, fething, actions}) => {
             <h1>Throughput</h1>
             {textThroughput}
           </SmallCard>
+          <SmallCard icon={<Schedule />}>
+            <h1>Lead Time</h1>
+            10<small>day</small>
+          </SmallCard>
       </div>
     ];
   };
