@@ -4,13 +4,13 @@ export const AUTENTICATE_TRELLO_FAILURE = 'AUTENTICATE_TRELLO_FAILURE';
 
 export const UNAUTENTICATE_TRELLO = 'UNAUTENTICATE_TRELLO';
 
-export const FETCH_BOARDS_DATA = 'FETCH_BOARDS_DATA';
-export const FETCH_BOARDS_DATA_SUCCESS = 'FETCH_BOARDS_DATA_SUCCESS';
-export const FETCH_BOARDS_DATA_FAILURE = 'FETCH_BOARDS_DATA_FAILURE';
+export const FETCH_BOARDS = 'FETCH_BOARDS_DATA';
+export const FETCH_BOARDS_SUCCESS = 'FETCH_BOARDS_SUCCESS';
+export const FETCH_BOARDS_FAILURE = 'FETCH_BOARDS_FAILURE';
 
-export const FETCH_BOARD_DATA = 'FETCH_BOARD_DATA';
-export const FETCH_BOARD_DATA_SUCCESS = 'FETCH_BOARD_DATA_SUCCESS';
-export const FETCH_BOARD_DATA_FAILURE = 'FETCH_BOARD_DATA_FAILURE';
+export const FETCH_ACTIONS = 'FETCH_ACTIONS';
+export const FETCH_ACTIONS_SUCCESS = 'FETCH_ACTIONS_SUCCESS';
+export const FETCH_ACTIONS_FAILURE = 'FETCH_ACTIONS_FAILURE';
 
 export const UPDATE_THROUGHPUT = 'UPDATE_THROUGHPUT';
 
@@ -22,9 +22,9 @@ export const autenticate = () => ({ type: AUTENTICATE_TRELLO });
 
 export const unautenticate = () => ({ type: UNAUTENTICATE_TRELLO });
 
-export const fetchBoardsData = () => ({type: FETCH_BOARDS_DATA});
+export const fetchBoards = () => ({type: FETCH_BOARDS});
 
-export const fetchBoardData = (board) => ({type: FETCH_BOARD_DATA, board});
+export const fetchActions = (board) => ({type: FETCH_ACTIONS, board});
 
 export const updateThroughput = (throughput) => ({
   type: UPDATE_THROUGHPUT,

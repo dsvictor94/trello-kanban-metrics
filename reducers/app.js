@@ -2,7 +2,15 @@ import {
   AUTENTICATE_TRELLO,
   AUTENTICATE_TRELLO_SUCCESS,
   AUTENTICATE_TRELLO_FAILURE,
-  UNAUTENTICATE_TRELLO
+  UNAUTENTICATE_TRELLO,
+
+  FETCH_BOARDS,
+  FETCH_BOARDS_SUCCESS,
+  FETCH_BOARDS_FAILURE,
+
+  FETCH_ACTIONS,
+  FETCH_ACTIONS_SUCCESS,
+  FETCH_ACTIONS_FAILURE
 } from '../actions';
 
 const app = (state = {
@@ -37,6 +45,14 @@ const app = (state = {
         autenticated: false,
         token: null
       };
+    case FETCH_BOARDS:
+    case FETCH_ACTIONS:
+      return {...state, fething: true};
+    case FETCH_BOARDS_SUCCESS:
+    case FETCH_BOARDS_FAILURE:
+    case FETCH_ACTIONS_SUCCESS:
+    case FETCH_ACTIONS_FAILURE:
+      return {...state, fething: false};
     default:
       return state;
   }
