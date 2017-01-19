@@ -1,5 +1,6 @@
 import {
-  UPDATE_THROUGHPUT
+  UPDATE_THROUGHPUT,
+  UPDATE_LEAD_TIME
 } from '../actions';
 
 const app = (state = {
@@ -10,6 +11,11 @@ const app = (state = {
       return {
         ...state,
         throughput: action.throughput
+      };
+    case UPDATE_LEAD_TIME:
+      return {
+        ...state,
+        leadTime: action.leadTime
       };
     default:
       return state;

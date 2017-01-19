@@ -16,12 +16,13 @@ import * as Actions from '../actions';
 
 import css from './App.css';
 
-const App = ({throughput, title, autenticated, fething, actions}) => {
+const App = ({throughput, leadTime, title, autenticated, fething, actions}) => {
   const login = <FlatButton label='Login' onTouchTap={actions.autenticate}/>;
   const logout = <FlatButton label='Logout' onTouchTap={actions.unautenticate}/>;
   let ok;
   if (autenticated) {
     const textThroughput = !isNaN(throughput) ? [throughput.toFixed(2), <small>card/day</small>] : 'Unknown';
+    const textLeadTime = !isNaN(leadTime) ? [leadTime.toFixed(2), <small>day</small>] : 'Unknown';
     ok = [
       <ScopeForm key='1'/>,
       <div className={css.throughputArea} key='2'>
@@ -31,7 +32,7 @@ const App = ({throughput, title, autenticated, fething, actions}) => {
           </SmallCard>
           <SmallCard icon={<Schedule />}>
             <h1>Lead Time</h1>
-            10<small>day</small>
+            {textLeadTime}
           </SmallCard>
       </div>
     ];
@@ -54,7 +55,8 @@ const App = ({throughput, title, autenticated, fething, actions}) => {
  */
 const mapStateToProps = (state) => ({
   ...state.app,
-  throughput: state.metrics.throughput
+  throughput: state.metrics.throughput,
+  leadTime: state.metrics.leadTime
 });
 
 /**

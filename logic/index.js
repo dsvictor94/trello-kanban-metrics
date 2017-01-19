@@ -16,13 +16,15 @@ import {
   FETCH_ACTIONS_FAILURE,
 
   CHANGE_BOARD,
+  CHANGE_BEGINS,
   CHANGE_ENDS,
 
   fetchBoards,
   fetchActions,
   changeBegins,
   changeEnds,
-  updateThroughput
+  updateThroughput,
+  updateLeadTime
 } from '../actions';
 
 export const autenticateLogic = createLogic({
@@ -98,7 +100,16 @@ export const boardDataFetchLogic = createLogic({
   latest: true,
 
   process({ Trello, getState, action }, dispatch) {
-    const params = { actions: 'all', actions_limit: '1000' };
+    const actions = [
+      'createCard',
+      'copyCard',
+      'moveCardToBoard',
+      'convertToCardFromCheckItem',
+      'deleteCard',
+      'moveCardFromBoard',
+      'updateCard'
+    ].join(',');
+    const params = { actions, actions_limit: '1000' };
     Trello.get(`/boards/${action.board}`, params)
       .then(({actions}) => {
         dispatch({type: FETCH_ACTIONS_SUCCESS, actions});
@@ -119,7 +130,7 @@ export const calculateThroughput = createLogic({
   },
 
   process({getState, action}, dispatch) {
-    const CREATE_ACTIONS = ['createCard', 'moveCardToBoard', 'updateCard'];
+    const CREATE_ACTIONS = ['createCard', 'convertToCardFromCheckItem', 'moveCardToBoard', 'updateCard'];
 
     const actions = getState().data.actions
       .filter((a) => CREATE_ACTIONS.includes(a.type))
@@ -129,7 +140,6 @@ export const calculateThroughput = createLogic({
         return (a.type === 'updateCard' ? listAfter : list).id === getState().scope.ends;
       });
 
-    console.log(action);
     if (actions.length) {
       const first = new Date(actions[0].date);
       const last = new Date(actions[actions.length - 1].date);
@@ -137,10 +147,39 @@ export const calculateThroughput = createLogic({
 
       const throughput = (count - 1) / days_between(first, last);
 
-      console.log('==', first, last, count, actions);
       dispatch(updateThroughput(throughput));
     } else {
       dispatch(updateThroughput(NaN));
+    }
+  }
+});
+
+export const calculateLeadTime = createLogic({
+  type: [FETCH_ACTIONS_SUCCESS, CHANGE_ENDS, CHANGE_BEGINS],
+
+  validate({getState, action}, allow, reject) {
+    if ([CHANGE_ENDS, CHANGE_BEGINS].includes(action.type) && !getState().data.actions.length) {
+      reject(action);
+    } else {
+      allow(action);
+    }
+  },
+
+  process({getState, action}, dispatch) {
+    const {begins, ends} = getState().scope;
+    const cardLeadTime = Object.values(reduce_actions(getState().data.actions))
+      .map(card => card.filter(action => [begins, ends].includes(action.list)))
+      .map(card => card.filter(action => action.in))
+      .filter(card => card.length === 2)
+      .filter(card => card[1].list === begins && card[0].list === ends)
+      .map(card => { console.log(card); return card; })
+      .map(card => card[0].date - card[1].date);
+    if (cardLeadTime.length > 0) {
+      const avg = cardLeadTime.reduce((acc, v) => acc + v) / cardLeadTime.length;
+      console.log('@@@@@', avg);
+      dispatch(updateLeadTime(avg / (1000 * 60 * 60 * 24)));
+    } else {
+      dispatch(updateLeadTime(NaN));
     }
   }
 });
@@ -151,7 +190,8 @@ export default [
   boardsFetchLogic,
   boardChangesLogic,
   boardDataFetchLogic,
-  calculateThroughput
+  calculateThroughput,
+  calculateLeadTime
 ];
 
 // PRIVATE HELPERS
@@ -169,4 +209,33 @@ function days_between(date1, date2) {
 
   // Convert back to days and return
   return difference_ms / ONE_DAY;
+}
+
+// Trello_actios -> [{card: [{list, date, in}]}]
+function reduce_actions(actions) {
+  const result = {};
+
+  for (const {type, data, date} of actions) {
+    if (!(data.card.id in result)) result[data.card.id] = [];
+    const card = result[data.card.id];
+    switch (type) {
+      case 'createCard':
+      case 'copyCard':
+      case 'moveCardToBoard':
+      case 'convertToCardFromCheckItem':
+        card.push({list: data.list.id, date: new Date(date), in: true});
+        break;
+      case 'deleteCard':
+      case 'moveCardFromBoard':
+        card.push({list: data.list.id, date: new Date(date), in: false});
+        break;
+      case 'updateCard':
+        if ('listAfter' in data && 'listBefore' in data) {
+          card.push({list: data.listAfter.id, date: new Date(date), in: true});
+          card.push({list: data.listBefore.id, date: new Date(date), in: false});
+        }
+        break;
+    }
+  }
+  return result;
 }

@@ -13,6 +13,7 @@ export const FETCH_ACTIONS_SUCCESS = 'FETCH_ACTIONS_SUCCESS';
 export const FETCH_ACTIONS_FAILURE = 'FETCH_ACTIONS_FAILURE';
 
 export const UPDATE_THROUGHPUT = 'UPDATE_THROUGHPUT';
+export const UPDATE_LEAD_TIME = 'UPDATE_LEAD_TIME';
 
 export const CHANGE_BOARD = 'CHANGE_BOARD';
 export const CHANGE_BEGINS = 'CHANGE_BEGINS';
@@ -29,6 +30,11 @@ export const fetchActions = (board) => ({type: FETCH_ACTIONS, board});
 export const updateThroughput = (throughput) => ({
   type: UPDATE_THROUGHPUT,
   throughput
+});
+
+export const updateLeadTime = (leadTime) => ({
+  type: UPDATE_LEAD_TIME,
+  leadTime
 });
 
 export const changeBoard = (value) => ({
